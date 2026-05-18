@@ -41,8 +41,8 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href.split("#")[0]);
 
-  /* Transparent only on homepage before scroll */
-  const transparent = isHome && !scrolled;
+  /* Transparent on ALL pages before scroll */
+  const transparent = !scrolled;
 
   return (
     <header style={{

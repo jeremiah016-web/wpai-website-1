@@ -16,8 +16,9 @@ export default function PageHero({ title, breadcrumb, image }: PageHeroProps) {
     <section
       style={{
         position: "relative",
-        /* Taller hero — accounts for fixed navbar (70px) already offset by layout padding */
-        height: "300px",
+        /* Pull up under the fixed transparent navbar */
+        marginTop: "-70px",
+        height: "370px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -48,7 +49,7 @@ export default function PageHero({ title, breadcrumb, image }: PageHeroProps) {
       }} />
 
       {/* Content */}
-      <div style={{ position: "relative", zIndex: 1, padding: "0 16px" }}>
+      <div style={{ position: "relative", zIndex: 1, padding: "70px 16px 0" }}>
         {/* Title */}
         <h1 style={{
           fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
