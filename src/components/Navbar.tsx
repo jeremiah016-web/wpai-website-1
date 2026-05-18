@@ -1,138 +1,200 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "/",                label: "Home"            },
-  { href: "/about",           label: "About Us"        },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
   { href: "/prayer-requests", label: "Prayer Requests" },
-  { href: "/services",        label: "Service"         },
-  { href: "/live-stream",     label: "Live Stream"     },
-  { href: "/leadership",      label: "Leadership"      },
-  { href: "/women",           label: "Women"           },
-  { href: "/contact",         label: "Contact"         },
+  { href: "/services", label: "Services" },
+  { href: "/live-stream", label: "Live Stream" },
+  { href: "/leadership", label: "Leadership" },
+  { href: "/women", label: "Women" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const BP = 1100;
 
 export default function Navbar() {
-  const pathname    = usePathname();
-  const [open,      setOpen]    = useState(false);
-  const [scrolled,  setScrolled]= useState(false);
-  const [desktop,   setDesktop] = useState(false);
+  const pathname = usePathname();
 
-  const isHome = pathname === "/";
+  const [open, setOpen] = useState(false);
+  const [desktop, setDesktop] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
+  // Active route
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(href);
+
+  // Scroll hide/show navbar
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    const onResize = () => setDesktop(window.innerWidth >= BP);
-    onScroll(); onResize();
+    let lastScrollY = window.scrollY;
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      setScrolled(currentScrollY > 20);
+
+      // Hide when scrolling down
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHidden(true);
+      } else {
+        // Show when scrolling up
+        setHidden(false);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    const onResize = () => {
+      setDesktop(window.innerWidth >= BP);
+    };
+
+    onScroll();
+    onResize();
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
   }, []);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
-
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href.split("#")[0]);
-
-  /* Transparent on ALL pages before scroll */
-  const transparent = !scrolled;
+  // Close mobile menu on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
-    <header style={{
-      position: "fixed",
-      top: 0, left: 0, right: 0,
-      zIndex: 100,
-      background: transparent
-        ? "transparent"
-        : scrolled
-          ? "rgba(255,255,255,0.97)"
-          : "#ffffff",
-      backdropFilter: !transparent && scrolled ? "blur(12px)" : "none",
-      borderBottom: transparent ? "none" : "1px solid rgba(229,231,235,0.8)",
-      boxShadow: transparent ? "none" : scrolled ? "0 2px 20px rgba(0,0,0,0.08)" : "none",
-      transition: "background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease",
-    }}>
-      <div className="wrap" style={{
-        height: "70px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "16px",
-      }}>
+    <header
+  style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
 
-        {/* ── Logo ── */}
-        <Link href="/" aria-label="WPAI" style={{
-          display: "flex", alignItems: "center", gap: "10px",
-          textDecoration: "none", flexShrink: 0,
-        }}>
+    /* Hide on scroll down */
+    transform: hidden
+      ? "translateY(-100%)"
+      : "translateY(0)",
+
+    /* FULLY TRANSPARENT */
+    background: "transparent",
+
+    /* REMOVE ALL EFFECTS */
+    backdropFilter: "none",
+    WebkitBackdropFilter: "none",
+
+    borderBottom: "none",
+
+    boxShadow: "none",
+
+    transition: "transform 0.35s ease",
+  }}
+>
+      {/* CONTAINER */}
+      <div
+        className="wrap"
+        style={{
+          height: "72px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "16px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}
+      >
+        {/* LOGO */}
+        <Link
+          href="/"
+          aria-label="WPAI"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            textDecoration: "none",
+            flexShrink: 0,
+          }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/wpai-logo.png"
             alt="WPAI"
             style={{
-              height: "44px", width: "auto", objectFit: "contain",
-              transition: "opacity 0.3s ease",
-              opacity: transparent ? 0.92 : 1,
+              height: "46px",
+              width: "auto",
+              objectFit: "contain",
             }}
           />
-          {!transparent && (
-            <div style={{ lineHeight: 1 }}>
-              <div style={{
-                fontFamily: "var(--font-montserrat),'Montserrat',sans-serif",
-                fontWeight: 900, fontSize: "0.88rem",
-                color: "#0f2347", letterSpacing: "-0.01em",
-              }}>WPAI</div>
-              <div style={{
-                fontSize: "0.6rem", color: "#9ca3af",
-                fontWeight: 600, letterSpacing: "0.05em", marginTop: "2px",
-              }}>Washington Pentecostal Assembly</div>
-            </div>
-          )}
+
+          
         </Link>
 
-        {/* ── Desktop nav ── */}
+        {/* DESKTOP NAV */}
         {desktop && (
-          <nav style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
             {NAV.map(({ href, label }) => {
               const active = isActive(href);
+
               return (
                 <Link
                   key={href}
                   href={href}
                   style={{
-                    padding: "6px 13px",
-                    borderRadius: "6px",
-                    fontSize: "0.78rem",
-                    fontWeight: active ? 700 : 500,
-                    color: transparent
-                      ? "#ffffff"
-                      : active ? "#0f2347" : "#6b7280",
+                    padding: "10px 14px",
+                    borderRadius: "8px",
                     textDecoration: "none",
+
+                    fontSize: "0.82rem",
+                    fontWeight: active ? 700 : 500,
+
+                    color: active
+                      ? "#ffffff"
+                      : "rgba(255,255,255,0.82)",
+
+                    background: active
+                      ? "rgba(255,255,255,0.12)"
+                      : "transparent",
+
+                    borderBottom: active
+                      ? "2px solid #c8a84b"
+                      : "2px solid transparent",
+
+                    transition: "all 0.2s ease",
+
                     whiteSpace: "nowrap",
-                    background: active && !transparent ? "#f3f4f6" : "transparent",
-                    borderBottom: active && !transparent ? "2px solid #c8a84b" : "2px solid transparent",
-                    transition: "all 0.18s ease",
-                    textShadow: transparent ? "0 1px 4px rgba(0,0,0,0.4)" : "none",
                   }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget;
+
                     if (!active) {
-                      el.style.color = transparent ? "#ffffff" : "#0f2347";
-                      el.style.background = transparent ? "rgba(255,255,255,0.12)" : "#f9fafb";
+                      el.style.background =
+                        "rgba(255,255,255,0.1)";
+                      el.style.color = "#ffffff";
                     }
                   }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget;
+
                     if (!active) {
-                      el.style.color = transparent ? "#ffffff" : "#6b7280";
                       el.style.background = "transparent";
+                      el.style.color =
+                        "rgba(255,255,255,0.82)";
                     }
                   }}
                 >
@@ -140,70 +202,150 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            {/* end nav links */}
           </nav>
         )}
 
-        {/* ── Hamburger ── */}
+        {/* MOBILE BUTTON */}
         {!desktop && (
           <button
-            onClick={() => setOpen(o => !o)}
+            onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
             style={{
-              background: "none", border: "none", cursor: "pointer",
-              padding: "8px", borderRadius: "6px",
-              display: "flex", flexDirection: "column", gap: "5px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+
+              padding: "8px",
             }}
           >
-            {[0, 1, 2].map(i => (
-              <span key={i} style={{
-                display: "block", width: "22px", height: "2px",
-                background: transparent ? "#ffffff" : "#0f2347",
-                borderRadius: "2px",
-                transition: "all 0.22s ease",
-                transform: open
-                  ? i === 0 ? "translateY(7px) rotate(45deg)"
-                  : i === 2 ? "translateY(-7px) rotate(-45deg)"
-                  : "scaleX(0)"
-                  : "none",
-                opacity: open && i === 1 ? 0 : 1,
-              }} />
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  width: "24px",
+                  height: "2px",
+                  background: "#ffffff",
+                  borderRadius: "20px",
+
+                  transition: "all 0.25s ease",
+
+                  transform: open
+                    ? i === 0
+                      ? "translateY(7px) rotate(45deg)"
+                      : i === 2
+                      ? "translateY(-7px) rotate(-45deg)"
+                      : "scaleX(0)"
+                    : "none",
+
+                  opacity: open && i === 1 ? 0 : 1,
+                }}
+              />
             ))}
           </button>
         )}
       </div>
 
-      {/* ── Mobile drawer ── */}
+      {/* MOBILE MENU */}
       {!desktop && (
-        <div style={{
-          maxHeight: open ? "580px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.3s ease",
-          background: "#ffffff",
-          borderTop: open ? "1px solid #e5e7eb" : "none",
-        }}>
-          <div className="wrap" style={{ paddingTop: "10px", paddingBottom: "20px" }}>
+        <div
+          style={{
+            maxHeight: open ? "600px" : "0",
+            overflow: "hidden",
+
+            transition: "max-height 0.35s ease",
+
+           background: "#0a1628",
+            backdropFilter: "none",
+            borderTop: open
+              ? "1px solid rgba(255,255,255,0.08)"
+              : "none",
+          }}
+        >
+          <div
+            className="wrap"
+            style={{
+              padding: "14px 20px 24px",
+            }}
+          >
             {NAV.map(({ href, label }) => {
               const active = isActive(href);
+
               return (
-                <Link key={href} href={href} style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  padding: "12px 14px", borderRadius: "8px", marginBottom: "2px",
-                  fontSize: "0.875rem", fontWeight: active ? 700 : 500,
-                  color: active ? "#0f2347" : "#374151",
-                  textDecoration: "none",
-                  background: active ? "#f3f4f6" : "transparent",
-                }}>
+                <Link
+                  key={href}
+                  href={href}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+
+                    padding: "14px 14px",
+                    marginBottom: "4px",
+
+                    borderRadius: "10px",
+
+                    textDecoration: "none",
+
+                    color: active
+                      ? "#ffffff"
+                      : "rgba(255,255,255,0.82)",
+
+                    background: active
+                      ? "rgba(255,255,255,0.1)"
+                      : "transparent",
+
+                    fontWeight: active ? 700 : 500,
+
+                    fontSize: "0.92rem",
+                  }}
+                >
                   {label}
-                  {active && <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#c8a84b" }} />}
+
+                  {active && (
+                    <span
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        borderRadius: "50%",
+                        background: "#c8a84b",
+                      }}
+                    />
+                  )}
                 </Link>
               );
             })}
-            <div style={{ marginTop: "14px", paddingTop: "14px", borderTop: "1px solid #f3f4f6" }}>
-              <p style={{ fontSize: "0.72rem", color: "#9ca3af" }}>📍 4318 Baltimore Ave, Bladensburg, MD 20710</p>
-              <p style={{ fontSize: "0.72rem", color: "#9ca3af", marginTop: "4px" }}>📞 (240) 909-6289</p>
+
+            {/* CONTACT */}
+            <div
+              style={{
+                marginTop: "16px",
+                paddingTop: "16px",
+                borderTop:
+                  "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.65)",
+                  fontSize: "0.75rem",
+                  marginBottom: "6px",
+                }}
+              >
+                📍 4318 Baltimore Ave, Bladensburg, MD 20710
+              </p>
+
+              <p
+                style={{
+                  color: "rgba(255,255,255,0.65)",
+                  fontSize: "0.75rem",
+                }}
+              >
+                📞 (240) 909-6289
+              </p>
             </div>
           </div>
         </div>
