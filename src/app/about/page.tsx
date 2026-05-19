@@ -51,7 +51,7 @@ const DOCTRINES = [
     number: "6", title: "HEAVEN AND HELL",
     content: `We believe that heaven is the dwelling place of God and the eternal home of the saints, and that hell is a place of sorrow into which the unsaved are turned and a place eternally separated from God.`,
     sub: [],
-    image: "https://images.unsplash.com/photo-1438232992991-995b671e4668?w=700&q=80&auto=format&fit=crop",
+    image: "HEAVEN AND HELL.webp",
     imageAlt: "Worship service",
   },
   {
