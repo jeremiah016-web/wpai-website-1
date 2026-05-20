@@ -20,11 +20,7 @@ const BOARD = [
     role: "Board Member",
     image: "/leadership/moses.jpg",
   },
-  {
-    name: "Bro. Daniel Joy",
-    role: "Board Member",
-    image: "/leadership/daniel.jpg",
-  },
+ 
   {
     name: "Bro. Melvin Mathew",
     role: "Board Member",
