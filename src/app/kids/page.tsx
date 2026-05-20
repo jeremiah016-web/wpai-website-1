@@ -117,7 +117,7 @@ export default function KidsPage() {
           <div style={{ marginTop: "40px", borderRadius: "8px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/kids-convention.jpg"
+              src="kids/kids-convention.jpg"
               alt="WPA Kids at Annual Convention New York — children receiving awards on stage"
               style={{ width: "100%", height: "auto", display: "block" }}
             />

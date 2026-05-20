@@ -44,14 +44,14 @@ const DOCTRINES = [
     number: "5", title: "SALVATION",
     content: `We believe that salvation is a gift of God by grace alone and is received through repentance and personal faith in the Lord Jesus Christ and that this faith is manifested in loving obedience and good works.`,
     sub: [],
-    image: "/SALVATION.jpg",
+    image: "about/SALVATION.jpg",
     imageAlt: "Salvation — gift of God by grace",
   },
   {
     number: "6", title: "HEAVEN AND HELL",
     content: `We believe that heaven is the dwelling place of God and the eternal home of the saints, and that hell is a place of sorrow into which the unsaved are turned and a place eternally separated from God.`,
     sub: [],
-    image: "HEAVEN AND HELL.webp",
+    image: "about/HEAVEN AND HELL.webp",
     imageAlt: "Worship service",
   },
   {
@@ -75,14 +75,14 @@ const DOCTRINES = [
     number: "9", title: "BAPTISM OF HOLY SPIRIT",
     content: `We believe that the baptism of the Holy Spirit is a definite experience, subsequent and additional to salvation. In salvation or new birth eternal life is imparted by the Holy Spirit; and in baptism of the Spirit eternal power is imparted. Speaking with other tongues is the initial, physical evidence of having received this endowment of power.`,
     sub: [],
-    image: "/holy.jpg",
+    image: "about/holy.jpg",
     imageAlt: "Holy Spirit worship",
   },
   {
     number: "10", title: "HOLINESS",
     content: `We believe that the Bible teaches the life of holiness "without which no man shall see the Lord." Sanctification is the will of God for all believers and should be earnestly pursued by walking in obedience to the Word of God.`,
     sub: [],
-    image: "/Holiness.jpg",
+    image: "about/Holiness.jpg",
     imageAlt: "Holy living and worship",
   },
 ];

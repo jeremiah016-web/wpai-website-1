@@ -50,7 +50,7 @@ export default function YouthPage() {
           <div style={{ marginBottom: "36px", borderRadius: "8px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/museum-of-the-bible.jpg"
+              src="youth/museum-of-the-bible.jpg"
               alt="Museum of the Bible — Washington DC"
               style={{ width: "100%", height: "auto", display: "block" }}
             />
