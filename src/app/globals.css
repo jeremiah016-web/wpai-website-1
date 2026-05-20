@@ -390,3 +390,12 @@ html, body { overflow-x: hidden; }
 .ov-card:hover .ov-body {
   background: linear-gradient(to top, rgba(8,16,40,.94) 0%, rgba(8,16,40,.18) 60%);
 }
+.leadership-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.leadership-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(200, 168, 75, 0.9);
+}

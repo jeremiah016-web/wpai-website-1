@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import LeadershipGrid from "@/components/LeadershipGrid";
 import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
@@ -20,7 +21,11 @@ const BOARD = [
     role: "Board Member",
     image: "/leadership/moses.jpg",
   },
- 
+  {
+    name: "Bro. Daniel Joy",
+    role: "Board Member",
+    image: "/leadership/daniel.jpg",
+  },
   {
     name: "Bro. Melvin Mathew",
     role: "Board Member",
@@ -257,87 +262,7 @@ export default function LeadershipPage() {
           </div>
 
           {/* GRID */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "28px",
-            }}
-          >
-            {BOARD.map((member) => (
-              <div
-                key={member.name}
-                style={{
-                  background: "#ffffff",
-                  borderRadius: "24px",
-                  padding: "36px 24px",
-                  textAlign: "center",
-                  border: "1px solid rgba(226,232,240,0.8)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-                }}
-              >
-                {/* IMAGE */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "110px",
-                      height: "110px",
-                      borderRadius: "50%",
-                      overflow: "hidden",
-                      border:
-                        "4px solid rgba(200,168,75,0.85)",
-                      boxShadow:
-                        "0 8px 20px rgba(0,0,0,0.12)",
-                    }}
-                  >
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={110}
-                      height={110}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* NAME */}
-                <h4
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: 800,
-                    color: "#111827",
-                    lineHeight: 1.5,
-                    marginBottom: "8px",
-                  }}
-                >
-                  {member.name}
-                </h4>
-
-                {/* ROLE */}
-                <p
-                  style={{
-                    color: "#c8a84b",
-                    fontWeight: 700,
-                    fontSize: "0.85rem",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  {member.role}
-                </p>
-              </div>
-            ))}
-          </div>
+          <LeadershipGrid members={BOARD} />
         </div>
       </section>
     </>
