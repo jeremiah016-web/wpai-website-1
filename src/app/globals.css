@@ -22,6 +22,10 @@
   --border:        #e5e7eb;
   --muted:         #6b7280;
   --light:         #9ca3af;
+
+  /* Local font fallbacks to keep builds self-contained */
+  --font-montserrat: "Montserrat", system-ui, sans-serif;
+  --font-open-sans: "Open Sans", system-ui, -apple-system, sans-serif;
 }
 
 /* ══════════════════════════════════════

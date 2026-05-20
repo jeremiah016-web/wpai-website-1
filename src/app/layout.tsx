@@ -1,27 +1,8 @@
 import type { Metadata } from "next";
-import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollAnimator from "@/components/ScrollAnimator";
-
-/* ── IPC Hebron-style fonts ── */
-
-/* Montserrat — headings, nav, buttons (bold, wide tracking) */
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-/* Open Sans — body text (clean, highly readable) */
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  variable: "--font-open-sans",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.wpai.org"),
@@ -62,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
+    <html lang="en">
       <body className="font-sans">
         <a
           href="#main"
