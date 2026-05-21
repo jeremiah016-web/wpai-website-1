@@ -123,6 +123,11 @@ export default function Navbar() {
             gap: "12px",
             textDecoration: "none",
             flexShrink: 0,
+            padding: "6px 12px",
+            borderRadius: "9999px",
+            background: "rgba(255,255,255,0.92)",
+            border: "1px solid rgba(255,255,255,0.55)",
+            boxShadow: "0 6px 18px rgba(0,0,0,0.14)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,7 +135,7 @@ export default function Navbar() {
             src="/wpai-logo.png"
             alt="WPAI"
             style={{
-              height: "46px",
+              height: "40px",
               width: "auto",
               objectFit: "contain",
             }}
